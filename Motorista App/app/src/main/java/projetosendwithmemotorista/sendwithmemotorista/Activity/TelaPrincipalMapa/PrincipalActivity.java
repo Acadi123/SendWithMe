@@ -1,5 +1,6 @@
 package projetosendwithmemotorista.sendwithmemotorista.Activity.TelaPrincipalMapa;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import projetosendwithmemotorista.sendwithmemotorista.Activity.LoginMotorista.LoginActivity;
+import projetosendwithmemotorista.sendwithmemotorista.Activity.TelaPerfil.TelaPerfil;
 import projetosendwithmemotorista.sendwithmemotorista.R;
 
 public class PrincipalActivity extends AppCompatActivity
@@ -97,11 +102,24 @@ public class PrincipalActivity extends AppCompatActivity
                 showFragment(new MapaActivity(), "MapaMotorista");
 
                 break;
+            case R.id.EditarPerfil:
+
+                Intent intentAbrirTelaEditarPerfil = new Intent(PrincipalActivity.this, TelaPerfil.class );
+                startActivity(intentAbrirTelaEditarPerfil);
+
+                break;
+            case R.id.Sair:
+                Sair();
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void Sair() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(PrincipalActivity.this, LoginActivity.class));
+        PrincipalActivity.this.finish();
     }
 }
